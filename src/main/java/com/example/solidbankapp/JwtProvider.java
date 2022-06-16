@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
@@ -19,6 +20,7 @@ import java.util.Date;
 
 @Component
 @Log
+@AllArgsConstructor
 public class JwtProvider {
 
     @Value("$(jwt.secret)")
@@ -32,7 +34,6 @@ public class JwtProvider {
                 .signWith(SignatureAlgorithm.HS512, jwtSecret)
                 .compact();
     }
-
     public boolean validateToken(String token) {
         try {
             Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token);
@@ -50,7 +51,7 @@ public class JwtProvider {
         }
         return false;
     }
-
+    @Bean
     public String getLoginFromToken(String token) {
         Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
         return claims.getSubject();
