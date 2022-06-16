@@ -20,7 +20,6 @@ import java.util.Date;
 
 @Component
 @Log
-@AllArgsConstructor
 public class JwtProvider {
 
     @Value("$(jwt.secret)")
@@ -51,7 +50,7 @@ public class JwtProvider {
         }
         return false;
     }
-    @Bean
+
     public String getLoginFromToken(String token) {
         Claims claims = Jwts.parser().setSigningKey(jwtSecret).parseClaimsJws(token).getBody();
         return claims.getSubject();

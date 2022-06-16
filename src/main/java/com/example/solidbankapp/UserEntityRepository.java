@@ -1,8 +1,13 @@
 package com.example.solidbankapp;
 
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.stereotype.Repository;
 
-public interface UserEntityRepository extends CrudRepository<UserEntity, Integer> {
+@Repository
+public interface UserEntityRepository extends CrudRepository<UserTable, Integer> {
 
-    UserEntity findByLogin(String login);
+    UserTable findByUsername(String username);
+
+
 }

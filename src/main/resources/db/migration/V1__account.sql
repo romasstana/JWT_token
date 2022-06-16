@@ -1,9 +1,8 @@
 -- auto-generated definition
-create table role
+create table ROLE
 (
     id  INT not null AUTO_INCREMENT,
-    name varchar(20) not null,
-    constraint PK_role primary key(id)
+    name varchar(20) not null
 
 );
 
@@ -12,14 +11,12 @@ create table user_table
 (
     id  INT not null AUTO_INCREMENT,
     username    varchar(50) not null,
-    user_password varchar(500) not null,
-    role_id  integer not null,
-    CONSTRAINT PK_user_table PRIMARY KEY (id),
-    FOREIGN KEY (role_id) references (id)
+    password varchar(500) not null,
+    role_id  integer not null
 );
 
-insert into role(name) values ('ROLE_ADMIN');
-insert into role(name) values ('ROLE_USER');
+insert into ROLE(name) values ('ROLE_ADMIN');
+insert into ROLE(name) values ('ROLE_USER');
 
 CREATE TABLE Account
 (

@@ -3,13 +3,26 @@ package com.example.solidbankapp;
 
 import com.example.solidbankapp.ACCOUNT.AccountBasicCLI;
 import com.example.solidbankapp.DAO.AccountDAO;
+import jakarta.persistence.EntityManager;
+import org.hibernate.engine.spi.SessionImplementor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.AutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.orm.jpa.JpaProperties;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Import;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+
 @SpringBootApplication
+@AutoConfiguration(after = { DataSourceAutoConfiguration.class })
+@ConditionalOnClass({ LocalContainerEntityManagerFactoryBean.class, EntityManager.class, SessionImplementor.class })
+@EnableConfigurationProperties(JpaProperties.class)
 
 //@EnableJdbcRepositories
 //@AllArgsConstructor

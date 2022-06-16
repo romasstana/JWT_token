@@ -5,32 +5,31 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
-@AllArgsConstructor
 public class UserService {
 
     @Autowired
-    private UserEntityRepository userEntityRepository;
+    private UserEntityRepository userTableRepository;
     @Autowired
     private RoleEntityRepository roleEntityRepository;
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public UserEntity saveUser(UserEntity userEntity) {
-        RoleEntity userRole = roleEntityRepository.findByName("ROLE_USER");
-        userEntity.setRole_id(userRole.getId());
-        userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
-        return userEntityRepository.save(userEntity);
+    public UserTable saveUser(UserTable UserTable) {
+        RoleEntity userRole = roleEntityRepository.findRoleEntityById(2);
+        UserTable.setPassword(passwordEncoder.encode(UserTable.getPassword()));
+        UserTable.setRole_id(userRole.getId());
+        return userTableRepository.save(UserTable);
     }
 
-    public UserEntity findByLogin(String login) {
-        return userEntityRepository.findByLogin(login);
+    public UserTable findByLogin(String login) {
+        return userTableRepository.findByUsername(login);
     }
 
-    public UserEntity findByLoginAndPassword(String login, String password) {
-        UserEntity userEntity = findByLogin(login);
-        if (userEntity != null) {
-            if (passwordEncoder.matches(password, userEntity.getPassword())) {
-                return userEntity;
+    public UserTable findByLoginAndPassword(String login, String password) {
+        UserTable UserTable = findByLogin(login);
+        if (UserTable != null) {
+            if (passwordEncoder.matches(password, UserTable.getPassword())) {
+                return UserTable;
             }
         }
         return null;

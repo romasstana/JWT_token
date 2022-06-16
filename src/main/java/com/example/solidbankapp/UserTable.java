@@ -1,34 +1,28 @@
 package com.example.solidbankapp;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Column;
 import org.springframework.data.relational.core.mapping.Table;
 
-@Table(name = "user")
+@Table(name = "user_table")
 @Data
 @AllArgsConstructor
+@Entity
 @NoArgsConstructor
-public class UserEntity {
-
+public class UserTable {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(value = "id")
-    private @Id int id;
+    private int id;
     @Column(value = "username")
     private String username;
-    @Column(value = "user_password")
+    @Column(value = "password")
     private String password;
     @Column(value = "role_id")
     private int role_id;
 
 
-//    @Override
-//    public String toString() {
-//
-//        return "Account{" +
-//                ", id='" + id + '\'' +
-//                ", clientID='" + clientId + '\'' +
-//                ", balance=" + balance +
-//                '}';
-//    }
 }
